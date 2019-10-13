@@ -1,0 +1,95 @@
+<%- include('layouts/header') -%>
+<%- include('layouts/navbar') -%>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdO1aN_ErEpwtTkXYgVps4RuFzrsw44F8&callback=initMap">
+</script>
+
+<div class="container map">
+    <div class="row">
+        <div class="col-12">
+                <div id="map"></div>
+        </div>
+    </div>
+</div>
+   
+<script>
+
+    var map;
+    var lat = <%- lat %>;
+    var long = <%- long %>;
+    var ftLatArr = <%- JSON.stringify(ftLatArr) %>;
+    var ftLongArr = <%- JSON.stringify(ftLongArr) %>;
+
+    console.log("test: " + ftLatArr[0]);
+    var ftNames = ["JoJos", "The Gumbo Man", "TacoTaco", "I Scream"];
+
+    // function hideAllInfoWindows(map) {
+    //     markerArr.forEach(function(marker) {
+    //         marker.infowindow.close(map, marker);
+    //     }); 
+    // }
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: new google.maps.LatLng(lat, long),
+        mapTypeId: 'terrain'
+      });
+    
+    //create arrays to hold windows and markers:
+    var windowArr = [];
+    var markerArr = [];
+
+    for (let i = 0; i < ftLatArr.length; i++){
+        //create content:
+        var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">' + ftNames[i] + '</h1>'+
+      '<div id="bodyContent">'+
+      '<p>Cuisine: </p>'+
+      '<p>Attribution: Uluru, <a href="#">'+
+      ftNames[i] + '.com</a> '+
+      '</p>'+
+      '</div>'+
+      '</div>';
+      //create info windows and push to array:
+      var infoWindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+        windowArr.push(infoWindow);
+
+        //create markers and push to array:
+        var foodTruck = {lat: ftLatArr[i], lng: ftLongArr[i]};
+        var marker = new google.maps.Marker({position: foodTruck, map: map, title: ftNames[i]});
+        markerArr.push(marker);
+
+        //add listeners for each marker:
+        markerArr[i].addListener('click', function(){
+            // hideAllInfoWindows(map);
+            windowArr[i].open(map, markerArr[i]);
+            map.addListener('click', function(){
+                windowArr[i].close();
+            })
+        });
+    }
+
+
+
+    // Loop through the results array and place a marker for each
+    // set of coordinates.
+    // window.eqfeed_callback = function(ftLat, ftLong) {
+    //    for (var i = 0; i < ftLats.length; i++) {
+    //       console.log("lat from ftlocations arr at index " + i + " : " + ftLocations[i].lat);
+        // var latLng = new google.maps.LatLng(ftLat, ftLong);
+        // var marker = new google.maps.Marker({
+        //   position: latLng,
+        //   map: map
+        //  });
+      //}
+    // }
+    }
+  </script>
+
+  
+</body>

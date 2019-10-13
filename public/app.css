@@ -1,0 +1,35 @@
+.vw {
+    object-fit: fill;
+}
+
+.header {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 200%;
+  }
+
+
+@media(max-width: 715px){
+    #searchBar {
+        width: 350px;
+    }
+}
+
+#map {
+    height: 100%;
+}
+
+.map{
+    margin-top: 40px;
+    height: 700px;
+}
+
+.row {
+    height: 100%;
+}
+
+.col-12 {
+    height: 100%;
+}

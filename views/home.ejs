@@ -1,0 +1,65 @@
+<%- include('layouts/header') -%>
+<%- include('layouts/navbar') -%>
+
+
+<section class="container-fluid px-0">
+    <div class="row align-items-center">
+        <div class="col-12 px-0">
+          <div>
+            <img src="homePageImage.jpg" class="img-fluid vw" alt="">
+            <div class="header">
+                <h1 class="mb-5">Find the food that pleases you..</h1>
+                
+                <form action="/search" method="post" id="locationForm">
+                    <div class="input-group" id="searchBar">
+                        <div class="input-group-prepend">
+                             <button class="btn btn-outline-secondary" onclick="getLocation()"><i class="fas fa-location-arrow"></i></button>
+                        </div>
+                          <input type="text" class="form-control" placeholder="This doesn't work yet." name="location">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                          </div>
+                          <input type="hidden" id="lat" name="lat">
+                          <input type="hidden" id="long" name="long">
+                        </form>
+                    </div>
+                
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+        function getLocation() {
+          console.log("started getLocation");
+          const url = "/search";
+          const data = {};
+          var lat= "";
+          var long = "";
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(sendPosition);
+          } else { 
+            alert("Geolocation is not supported by this browser.")
+          }
+          function sendPosition(position){
+            console.log(position.coords.latitude);
+          lat = position.coords.latitude;
+          long = position.coords.longitude;
+
+          console.log("coords= " + lat + ", " + long);
+          
+          document.querySelector("#lat").value = lat;
+          document.querySelector("#long").value = long;
+          console.log("lat input field value: " + document.querySelector("#lat").value);
+          document.querySelector("#locationForm").submit();
+          }
+        }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
