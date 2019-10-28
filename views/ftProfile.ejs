@@ -1,0 +1,89 @@
+<%- include('layouts/header') -%>
+<% if (userId == null){ %>
+<%- include('layouts/navbar'); %>
+<% }else {%>
+<%- include('layouts/authNavbar'); %>
+<% } %>
+
+<div class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-6">
+                <form action="/createFoodTruck" method="post">
+                    <div class="form-group">
+                        <label for="ftName">Food Truck Name</label>
+                        <input name="ftName" type="text" class="form-control" placeholder="<%= ftName %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="cuisine">Cuisine</label>
+                        <select class="form-control" name="cuisine" aria-placeholder="<%= cuisine %>">
+                            <option>Soul Food</option>
+                            <option>American</option>
+                            <option>Sandwiches</option>
+                            <option>Mexican</option>
+                            <option>Chinese</option>
+                            <option>Ice Cream</option>
+                            <option>Coffee</option>
+                            <option>Smoothies</option>
+                            <option>Greek</option>
+                            <option>Indian</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <form action="/updateLocation" id="locationForm" method="post">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                Latitude: <%= latitude %>
+                            </div>
+                            <div class="col-6">
+                                Longitude: <%= longitude %>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-secondary" onclick="getLocation()"><i class="fas fa-location-arrow"></i></button>
+                    <input type="hidden" id="lat" name="lat">
+                    <input type="hidden" id="long" name="long">
+                </form>
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        function getLocation() {
+          console.log("started getLocation");
+          const url = "/search";
+          const data = {};
+          var lat= "";
+          var long = "";
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(sendPosition);
+          } else { 
+            alert("Geolocation is not supported by this browser.")
+          }
+          function sendPosition(position){
+            console.log(position.coords.latitude);
+          lat = position.coords.latitude;
+          long = position.coords.longitude;
+
+          console.log("coords= " + lat + ", " + long);
+          
+          document.querySelector("#lat").value = lat;
+          document.querySelector("#long").value = long;
+          console.log("lat input field value: " + document.querySelector("#lat").value);
+          document.querySelector("#locationForm").submit();
+          }
+        }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>

@@ -1,8 +1,9 @@
 <%- include('layouts/header') -%>
-<%- include('layouts/navbar') -%>
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdO1aN_ErEpwtTkXYgVps4RuFzrsw44F8&callback=initMap">
-</script>
+<% if (userId == null){ %>
+<%- include('layouts/navbar'); %>
+<% }else {%>
+<%- include('layouts/authNavbar'); %>
+<% } %>
 
 <div class="container map">
     <div class="row">
@@ -11,17 +12,20 @@
         </div>
     </div>
 </div>
+
+
    
 <script>
 
-    var map;
     var lat = <%- lat %>;
     var long = <%- long %>;
     var ftLatArr = <%- JSON.stringify(ftLatArr) %>;
     var ftLongArr = <%- JSON.stringify(ftLongArr) %>;
+    var ftNames = <%- JSON.stringify(ftNameArr) %>;
+    var cuisines = <%- JSON.stringify(cuisineArr) %>;
 
     console.log("test: " + ftLatArr[0]);
-    var ftNames = ["JoJos", "The Gumbo Man", "TacoTaco", "I Scream"];
+    
 
     // function hideAllInfoWindows(map) {
     //     markerArr.forEach(function(marker) {
@@ -30,7 +34,7 @@
     // }
 
     function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
+      var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: new google.maps.LatLng(lat, long),
         mapTypeId: 'terrain'
@@ -47,8 +51,8 @@
       '</div>'+
       '<h1 id="firstHeading" class="firstHeading">' + ftNames[i] + '</h1>'+
       '<div id="bodyContent">'+
-      '<p>Cuisine: </p>'+
-      '<p>Attribution: Uluru, <a href="#">'+
+      '<p>Cuisine: ' + cuisines[i] + '</p>'+
+      '<a href="#">'+
       ftNames[i] + '.com</a> '+
       '</p>'+
       '</div>'+
@@ -70,9 +74,9 @@
             windowArr[i].open(map, markerArr[i]);
             map.addListener('click', function(){
                 windowArr[i].close();
-            })
+            });
         });
-    }
+      }
 
 
 
@@ -88,8 +92,11 @@
         //  });
       //}
     // }
-    }
+   }
   </script>
 
-  
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdO1aN_ErEpwtTkXYgVps4RuFzrsw44F8&callback=initMap">
+</script>  
+
 </body>

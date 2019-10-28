@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/4c7f74c1-5bc5-48bb-bb92-1715671989b5/resourceGroups/FoodTruckFinder/providers/Microsoft.Web/sites/ftfinder",
+    "appService.deploySubpath": ""
+}

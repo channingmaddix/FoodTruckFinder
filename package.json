@@ -1,0 +1,20 @@
+{
+  "name": "foodtruckfinder",
+  "version": "1.0.0",
+  "description": "A web application built with JavaScript, Node.js, Express.js, Mongo, and Google Maps API. Allows users to find food trucks near them.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Channing Maddix",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mssql": "^5.1.0"
+  }
+}

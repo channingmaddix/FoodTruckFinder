@@ -1,0 +1,41 @@
+<%- include('layouts/header') -%>
+<% if (userId == null){ %>
+<%- include('layouts/navbar'); %>
+<% }else {%>
+<%- include('layouts/authNavbar'); %>
+<% } %>
+
+<div class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-6">
+                <form action="/createFoodTruck" method="post">
+                    <div class="form-group">
+                        <label for="ftName">Food Truck Name</label>
+                        <input name="ftName" type="text" class="form-control" placeholder="Food Truck Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="cuisine">Cuisine</label>
+                        <select class="form-control" name="cuisine">
+                            <option>Soul Food</option>
+                            <option>American</option>
+                            <option>Sandwiches</option>
+                            <option>Mexican</option>
+                            <option>Chinese</option>
+                            <option>Ice Cream</option>
+                            <option>Coffee</option>
+                            <option>Smoothies</option>
+                            <option>Greek</option>
+                            <option>Indian</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
+    </div>
+</div>
